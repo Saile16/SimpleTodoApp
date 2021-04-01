@@ -1,22 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% block content%}
+<div class="text-center">
+    <p>
+        {% if request.user.is_authenticated %}
+        Hello {{request.user.username}}
+        {% else %}
+        Hello anonymous user
+        {% endif %}
+    </p>
+    <a href="/" class="btn btn-secondary">Go home</a>
+</div>
+<div class="col-4 offset-4">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Django crash coursessssssss</title>
-</head>
-
-<body>
-    {% if request.user.is_authenticated %}
-    Hello{{request.user.username}}
-    {% else %}
-    Hello anonymous user
-    {% endif %}
-    The todo ID is: {{todo.id}}
-    The todo name is:{{ todo.name}}
-    The due date is {{todo.due_date}}
-</body>
-
-</html>
+    <div class="card mt-3">
+        <div class="card-header">
+            <a href="/{{todo.id}}">
+                <h4>{{todo.name}}</h4>
+            </a>
+        </div>
+        <div class="card-body">
+            <p>it's due {{todo.due_date}}</p>
+        </div>
+        <div class="card-footer">
+            <a href="/{{todo.id}}/update" class="btn btn-primary">Update this</a>
+            <a href="/{{todo.id}}/delete" class="btn btn-danger">Delete this</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
